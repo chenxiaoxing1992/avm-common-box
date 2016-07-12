@@ -109,7 +109,7 @@ window.onload = function(){
 
 
 	});
-	//验证手机号
+	//验证手机号de
 	var checkPhone = function (self){
 		var phone = $('.figure-phone').find('input').val();
 		var reg = /^1[3|4|5|7|8]\d{9}$/;

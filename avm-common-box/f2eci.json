@@ -1,0 +1,8 @@
+{
+	"name":"av-common-box",
+	"scripts":{
+   		"prebuild":"gulp",       
+   		"postpublish":"gulp registry"  
+	},
+	"dist":["dist","less","css","res"]
+}

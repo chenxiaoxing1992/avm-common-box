@@ -4,43 +4,17 @@ var tpl = require("./template/index.html");
 /*万事开头难*/
 $('body').append(tpl);
 window.onload = function(){
-	$('.figure-close').tap(function(){
-		$('.figure-bg-screen').hide();
-	    $('.figure-sub-btn').removeAttr('disabled');
-	    $('.figure-sub-btn').css('opacity',1);
-
-	});
-
-	$('.figure-sure').tap(function(){
-		var subSrc = $('.temp-img').find('img').eq(0).attr('src');
-		$('.figure-bg-screen').show();
-		$('.figure-text').show();
-		$('.success-infor').css({'opacity':0,'transform':'rotateZ(0deg)'});	
-		$('.figure-sub-btn').attr('data-btn','sub').parent().css('bottom','16%');
-		$('.figure-sub-btn').text('提交');
-		$('#replace-bg').attr('src',subSrc);
-	});
-
 	$('.figure-sub-btn').tap(function(event){
-			// console.log($(this).attr('data-btn'));
 			var self = this;
 			if (!(self.disabled)){
 				self.disabled = 'disabled';
 				$(self).css('opacity',0.5);
 				if ($(self).attr('data-btn') == 'sub'){
 				 	var tempSrc = $('.temp-img').find('img').eq(1).attr('src');
-				 	var phone = $('.figure-phone').find('input').val();
-				 	var reg = /^1[3|4|5|7|8]\d{9}$/;
-				 	if (!(reg.test(phone))){
-				 		$('.erro-infor').text('电话号码有误，重新输入');
-				 		setTimeout(function(){
-				 			$('.erro-infor').text('');
-				 			$(self).removeAttr('disabled');	
-				 			$(self).css('opacity',1);
-
-				 		},2000)
-				 		return;
-				 	}	
+					var checkphone = checkPhone(self);
+						if(checkphone === false){
+							return;
+						}
 				// console.log(tempSrc);
 					// $.ajax({
 					// 	type : '',
@@ -100,7 +74,13 @@ window.onload = function(){
 	});
 	
 	$('.get-Codes').tap(function(){
+
 		var self = this;
+		var checkphone = checkPhone(self);
+			if(checkphone === false){
+				return;
+			}
+			// checkPhone(self).call(this);
 			// $.ajax({
 			// 	type : '',
 			// 	url : '',
@@ -128,6 +108,38 @@ window.onload = function(){
 
 
 
+	});
+
+	var checkPhone = function (self){
+		var phone = $('.figure-phone').find('input').val();
+		var reg = /^1[3|4|5|7|8]\d{9}$/;
+			if (!(reg.test(phone))){
+				$('.erro-infor').text('电话号码有误，重新输入');
+				setTimeout(function(){
+					$('.erro-infor').text('');
+					$(self).removeAttr('disabled');	
+					$(self).css('opacity',1);
+
+				},2000)
+				return false;
+			}
+	};
+
+	$('.figure-close').tap(function(){
+		$('.figure-bg-screen').hide();
+	    $('.figure-sub-btn').removeAttr('disabled');
+	    $('.figure-sub-btn').css('opacity',1);
+
+	});
+
+	$('.figure-sure').tap(function(){
+		var subSrc = $('.temp-img').find('img').eq(0).attr('src');
+		$('.figure-bg-screen').show();
+		$('.figure-text').show();
+		$('.success-infor').css({'opacity':0,'transform':'rotateZ(0deg)'});	
+		$('.figure-sub-btn').attr('data-btn','sub').parent().css('bottom','16%');
+		$('.figure-sub-btn').text('提交');
+		$('#replace-bg').attr('src',subSrc);
 	});
 	
 }

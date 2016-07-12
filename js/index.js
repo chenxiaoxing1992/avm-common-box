@@ -109,7 +109,7 @@ window.onload = function(){
 
 
 	});
-
+	//验证手机号
 	var checkPhone = function (self){
 		var phone = $('.figure-phone').find('input').val();
 		var reg = /^1[3|4|5|7|8]\d{9}$/;
@@ -141,5 +141,6 @@ window.onload = function(){
 		$('.figure-sub-btn').text('提交');
 		$('#replace-bg').attr('src',subSrc);
 	});
+
 	
 }
